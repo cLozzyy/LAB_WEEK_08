@@ -5,13 +5,13 @@ import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 
-class FirstWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
+class ThirdWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
     override fun doWork(): Result {
         val id = inputData.getString(INPUT_DATA_ID)
-        Thread.sleep(3000L) // Simulasi proses lama
+        Thread.sleep(3000L) // Simulasi proses ketiga
 
         val outputData = Data.Builder()
-            .putString(OUTPUT_DATA_ID, id)
+            .putString(OUTPUT_DATA_ID, "ThirdWorker selesai untuk $id")
             .build()
 
         return Result.success(outputData)
