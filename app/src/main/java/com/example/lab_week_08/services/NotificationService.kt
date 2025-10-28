@@ -53,12 +53,10 @@ class NotificationService : Service() {
                     .setOngoing(true)
                     .build()
 
-                // ✅ tampilkan notifikasi
                 manager.notify(notificationId, notification)
                 Thread.sleep(1000)
             }
 
-            // ✅ setelah selesai, hapus notifikasi dan tampilkan Toast
             manager.cancel(notificationId)
             Handler(Looper.getMainLooper()).post {
                 Toast.makeText(this, "Channel id 001 process is done!", Toast.LENGTH_LONG).show()

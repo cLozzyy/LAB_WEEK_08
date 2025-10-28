@@ -1,24 +1,22 @@
 package com.example.lab_week_08.worker
 
 import android.content.Context
-import androidx.work.Data
+import android.content.Intent
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.example.lab_week_08.services.NotificationService
 
 class ThirdWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
     override fun doWork(): Result {
-        val id = inputData.getString(INPUT_DATA_ID)
-        Thread.sleep(3000L) // Simulasi proses ketiga
+        // Jalankan NotificationService (countdown 10–0)
+        val intent = Intent(applicationContext, NotificationService::class.java)
 
-        val outputData = Data.Builder()
-            .putString(OUTPUT_DATA_ID, "ThirdWorker selesai untuk $id")
-            .build()
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            applicationContext.startForegroundService(intent)
+        } else {
+            applicationContext.startService(intent)
+        }
 
-        return Result.success(outputData)
-    }
-
-    companion object {
-        const val INPUT_DATA_ID = "inId"
-        const val OUTPUT_DATA_ID = "outId"
+        return Result.success()
     }
 }
